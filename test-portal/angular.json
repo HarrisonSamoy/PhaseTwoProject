@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "test-portal"
+    }
+  },
+  "defaultProject": "test-portal",
+  "cli": {
+    "analytics": "7e702fa7-d14d-47a1-83a3-102d2cd25a2b"
+  }
 }
