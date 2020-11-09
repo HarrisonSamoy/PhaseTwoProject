@@ -1,10 +1,34 @@
 <div>
-    <h2>question {{qNum}}</h2>
+    <h2>Question {{qNum}}</h2>
     <p>{{qCurrent.question}}</p>
-    <p>{{qCurrent.wrongOne}}</p>
-    <p>{{qCurrent.wrongTwo}}</p>
-    <p>{{qCurrent.wrongThree}}</p>
-    <p>{{qCurrent.correct}}</p>
-    <button (click)="next()">Next</button>
+    <form  #formRef="ngForm" (ngSubmit)="save(formRef.value)" novalidate>
+    <div *ngFor="let option of qCurrent.options; let i=index">
+        <div *ngIf="qCurrent.guess==i; else elseGuess">
+            <div *ngIf="qCurrent.correct==i; else elseBlock">
+                <input type="radio" value="{{i}}" id="{{i}}" name="questionaire" ngModel checked="checked"/>
+                <label for="{{i}}" class="correct guessed">{{option}}</label>
+            </div>
+            <ng-template #elseBlock>
+                <input type="radio" value="{{i}}" id="{{i}}" name="questionaire" ngModel checked="checked"/>
+                <label for="{{i}}" class="wrong guessed">{{option}}</label>
+            </ng-template>
+        </div>
+        <ng-template #elseGuess>
+            <div *ngIf="qCurrent.correct==i; else elseBlock">
+                <input type="radio" value="{{i}}" id="{{i}}" name="questionaire" ngModel checked="unchecked"/>
+                <label for="{{i}}" class="correct">{{option}}</label>
+            </div>
+            <ng-template #elseBlock>
+                <input type="radio" value="{{i}}" id="{{i}}" name="questionaire" ngModel checked="unchecked"/>
+                <label for="{{i}}" class="wrong">{{option}}</label>
+            </ng-template>
+        </ng-template>
+    </div>
+    <input type="submit" value="submit"/>
+    </form>
+    <br/>
+
+
     <button (click)="prev()">Prev</button>
+    <button (click)="next()">Next</button>
 </div>
