@@ -18,6 +18,17 @@ export class Quiz {
     public length():number {
         return this.questionList.length; 
     }
+
+    public getResult():number {
+        var total:number = 0;
+        for (var question of this.questionList) {
+            if (question.guess == question.correct) {
+                total = total + 1;
+            }
+        }
+        console.log(total);
+        return total;
+    }
 }
 
 export class Question {

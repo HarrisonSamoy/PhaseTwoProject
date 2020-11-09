@@ -11,8 +11,12 @@ import { Question, Quiz } from '../models/model-quiz';
 export class QuestionComponent implements OnInit {
 
   qNum:number = 1;
-  qCurrent: Question;
-  quiz: Quiz = new Quiz();
+  size:number;
+  qCurrent:Question;
+  quiz:Quiz = new Quiz();
+  finished:boolean = false;
+  result:number;
+  percentage:string;
 
   constructor() { }
 
@@ -20,6 +24,8 @@ export class QuestionComponent implements OnInit {
     this.quiz.addQuestion("What is your name?", ["ME", "WE", "US", "Right"], 3);
     this.quiz.addQuestion("What is your name2?", ["ME2", "Right2", "US2", "YOU2"], 1);
     this.quiz.addQuestion("What is your name3?", ["ME3", "Right3", "US3", "YOU3"], 1);
+    
+    this.size = this.quiz.length();
 
     this.setCurrentQuestion();
   }
@@ -37,15 +43,19 @@ export class QuestionComponent implements OnInit {
     }
   }
   save(form: any) {
-    console.log("Question #" + this.qNum + ": answer = " + form.questionaire);
     if (form.questionaire != "") {
       this.quiz.setQuestionGuess(this.qNum, eval(form.questionaire));
     }
   }
+  finish() {
+    alert("finished");
+    this.finished = true;
+    this.result = this.quiz.getResult();
+    this.percentage = (this.result / this.quiz.length() * 100).toFixed(2);
+  }
   
   private setCurrentQuestion() {
     this.qCurrent = this.quiz.getQuestion(this.qNum);
-    console.log("Current guess is..." + this.qCurrent.guess);
   }
 
 }

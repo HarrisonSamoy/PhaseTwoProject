@@ -1,6 +1,10 @@
 <div>
     <h2>Question {{qNum}}</h2>
+
+
     <p>{{qCurrent.question}}</p>
+
+
     <form  #formRef="ngForm" (ngSubmit)="save(formRef.value)" novalidate>
     <div *ngFor="let option of qCurrent.options; let i=index">
         <div *ngIf="qCurrent.guess==i; else elseGuess">
@@ -26,9 +30,15 @@
     </div>
     <input type="submit" value="submit"/>
     </form>
-    <br/>
 
 
     <button (click)="prev()">Prev</button>
     <button (click)="next()">Next</button>
+    <button (click)="finish()">Finish</button>
+
+
+    <div *ngIf="finished">
+        <p>You Got {{result}} Of {{size}} Correct</p>
+        <p>That's {{percentage}}%</p>
+    </div>
 </div>
