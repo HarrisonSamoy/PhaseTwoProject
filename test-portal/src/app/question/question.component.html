@@ -1,44 +1,93 @@
-<div>
-    <h2>Question {{qNum}}</h2>
+<div class="container">
 
-
-    <p>{{qCurrent.question}}</p>
-
-
-    <form  #formRef="ngForm" (ngSubmit)="save(formRef.value)" novalidate>
-    <div *ngFor="let option of qCurrent.options; let i=index">
-        <div *ngIf="qCurrent.guess==i; else elseGuess">
-            <div *ngIf="qCurrent.correct==i; else elseBlock">
-                <input type="radio" value="{{i}}" id="{{i}}" name="questionaire" ngModel checked="checked"/>
-                <label for="{{i}}" class="correct guessed">{{option}}</label>
-            </div>
-            <ng-template #elseBlock>
-                <input type="radio" value="{{i}}" id="{{i}}" name="questionaire" ngModel checked="checked"/>
-                <label for="{{i}}" class="wrong guessed">{{option}}</label>
-            </ng-template>
+    <!-- Question Number Header -->
+    <div class="row mt-3">
+        <div class="col text-center">
+            <h2>Question {{qNum}}</h2>
         </div>
-        <ng-template #elseGuess>
-            <div *ngIf="qCurrent.correct==i; else elseBlock">
-                <input type="radio" value="{{i}}" id="{{i}}" name="questionaire" ngModel checked="unchecked"/>
-                <label for="{{i}}" class="correct">{{option}}</label>
+    </div>
+
+    <!-- Question Prompt -->
+    <div class="jumbotron text-center">
+        <p>{{qCurrent.question}}</p>
+    </div>
+
+    <!-- Multiple Choice Options -->
+    <div class="row justify-content-center">
+    <div class="col">
+        <form  #formRef="ngForm" (ngSubmit)="save(formRef.value)" novalidate>
+        <div class="container">
+            <!-- Options -->
+            <div class="row justify-content-center mt-3 mb-5">
+                <div class="col">
+                <div *ngFor="let option of qCurrent.options; let i=index">
+                    <div *ngIf="qCurrent.guess==i; else elseGuess">
+                        <div *ngIf="qCurrent.correct==i; else elseBlock">
+                            <label for="{{i}}" class="btn btn-secondary btn-block active">
+                            <input type="radio" class="option" value="{{i}}" id="{{i}}" name="questionaire" ngModel autocomplete="off" checked/>{{option}}
+                            </label>
+                        </div>
+                        <ng-template #elseBlock>
+                            <label for="{{i}}" class="btn btn-secondary btn-block active">
+                            <input type="radio" class="option" value="{{i}}" id="{{i}}" name="questionaire" ngModel autocomplete="off" checked/>{{option}}
+                            </label>
+                        </ng-template>
+                    </div>
+                    <ng-template #elseGuess>
+                        <div *ngIf="qCurrent.correct==i; else elseBlock">
+                            <label for="{{i}}" class="btn btn-block btn-outline-secondary">
+                            <input type="radio" class="option" value="{{i}}" id="{{i}}" name="questionaire" ngModel autocomplete="off"/>{{option}}
+                            </label>
+                        </div>
+                        <ng-template #elseBlock>
+                            <label for="{{i}}" class="btn btn-block btn-outline-secondary">
+                            <input type="radio" class="option" value="{{i}}" id="{{i}}" name="questionaire" ngModel autocomplete="off"/>{{option}}
+                            </label>
+                        </ng-template>
+                    </ng-template>
+                </div>
+                </div>
             </div>
-            <ng-template #elseBlock>
-                <input type="radio" value="{{i}}" id="{{i}}" name="questionaire" ngModel checked="unchecked"/>
-                <label for="{{i}}" class="wrong">{{option}}</label>
-            </ng-template>
-        </ng-template>
+
+            <!-- Save button -->
+            <div class="row justify-content-center">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <input type="submit" value="submit" class="btn btn-success btn-block"/>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+
+        </div>
+        </form>
     </div>
-    <input type="submit" value="submit"/>
-    </form>
-
-
-    <button (click)="prev()">Prev</button>
-    <button (click)="next()">Next</button>
-    <button (click)="finish()">Finish</button>
-
-
-    <div *ngIf="finished">
-        <p>You Got {{result}} Of {{size}} Correct</p>
-        <p>That's {{percentage}}%</p>
     </div>
+
+    <!-- Question Navigation -->
+    <div class="row mt-3 p-3 border rounded">
+        <div class="col-md-6">
+            <button (click)="prev()" class="btn btn-dark btn-block">Prev</button>
+        </div>
+        <div class="col-md-6">
+            <button (click)="next()" class="btn btn-dark btn-block">Next</button>
+        </div>
+    </div>
+
+    <!-- Finish Button -->
+    <div class="row mt-3">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <button (click)="finish()" class="btn btn-block btn-primary">Finish</button>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+    <!-- Display -->
+    <div class="row">
+        <div *ngIf="finished">
+            <p>You Got {{result}} Of {{size}} Correct</p>
+            <p>That's {{percentage}}%</p>
+        </div>
+    </div>
+
 </div>

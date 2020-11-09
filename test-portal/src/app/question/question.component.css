@@ -8,3 +8,17 @@
     color: white;
     background-color: grey;
 }
+
+.jumbotron {
+    margin-bottom: 0;
+}
+
+/* for testing */
+
+.see {
+    background-color: lightcoral;
+}
+
+.col-3 {
+    background-color: lightyellow;
+}

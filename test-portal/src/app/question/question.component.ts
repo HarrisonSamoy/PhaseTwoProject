@@ -48,7 +48,6 @@ export class QuestionComponent implements OnInit {
     }
   }
   finish() {
-    alert("finished");
     this.finished = true;
     this.result = this.quiz.getResult();
     this.percentage = (this.result / this.quiz.length() * 100).toFixed(2);
